@@ -1,0 +1,167 @@
+*,
+::before,
+::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --cellWidth : 90px;
+    --markSize : calc(var(--cellWidth) * .7);
+}
+
+body {
+    font-family: sans-serif;
+    padding: 0.5rem;
+}
+
+.board {
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: var(--markSize);
+    min-height: 95vh;
+    overflow: hidden;
+    grid-template-columns: repeat(3, auto);
+}
+
+.cells.x::before,
+.cells.x::after,
+.cells.circle::before {
+    background-color: #000;
+}
+
+.board.x .cells:not(.x):not(.circle):hover::before,
+.board.x .cells:not(.x):not(.circle):hover::after,
+.board.circle .cells:not(.x):not(.circle):hover::before {
+    background-color: #ccc;
+}
+
+
+.cells {
+    width: var(--cellWidth);
+    background-color: transparent;
+    height: var(--cellWidth);
+    border: 2px solid #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+}
+
+.cells:first-child,
+.cells:nth-child(2),
+.cells:nth-child(3) {
+    border-top: none;
+}
+
+.cells:first-child,
+.cells:nth-child(4),
+.cells:nth-child(7) {
+    border-left: none;
+}
+
+.cells:nth-child(7),
+.cells:nth-child(8),
+.cells:nth-child(9) {
+    border-bottom: none;
+} 
+
+.cells:nth-child(3),
+.cells:nth-child(6),
+.cells:nth-child(9) {
+    border-right: none;
+} 
+
+.cells.x::before,
+.cells.x::after,
+.board.x .cells:not(.x):not(.circle):hover::before,
+.board.x .cells:not(.x):not(.circle):hover::after {
+    position: absolute;
+    content: "";
+    width: calc(var(--markSize) * .15);
+    height: var(--markSize);
+}
+
+.cells.x::before,
+.board.x .cells:not(.x):not(.circle):hover::before{
+    transform: rotate(45deg);
+}
+
+.cells.x::after,
+.board.x .cells:not(.x):not(.circle):hover:after{
+    transform: rotate(-45deg);
+}
+
+
+/* CIRCLE */
+.cells.circle::before,
+.cells.circle::after,
+.board.circle .cells:not(.x):not(.circle):hover::before,
+.board.circle .cells:not(.x):not(.circle):hover:after{
+    position: absolute;
+    content: "";
+    border-radius: 50%;
+}
+
+
+
+.cells.circle::before,
+.board.circle .cells:not(.x):not(.circle):hover::before{
+    width: var(--markSize);
+    height: var(--markSize);
+}
+
+.cells.circle::after,
+.board.circle .cells:not(.x):not(.circle):hover::after {
+    width: calc(var(--markSize) * .7);
+    height: calc(var(--markSize) * .7);
+    background-color: #fff;
+}
+
+/* Not Allowed */
+.cells.x,
+.cells.circle {
+    cursor: not-allowed;
+}
+
+/* Winnimg messsage screen */
+.winning-page {
+    display: none;
+    position: fixed;
+    background-color: black;
+    opacity: 90%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    color: #fff;
+    font-size: 4rem;
+} 
+/* Button  */ 
+.winning-page button {
+    font-size: 20px;
+    padding: 10px 25px;
+    font-weight: bolder;
+    border: 2px solid black;
+    cursor: pointer;
+    margin-top: 25px;
+}
+
+.winning-page button:hover {
+    background-color: #000;
+    color: #fff;
+    border-color: white;
+}
+
+.winning-page.show {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
